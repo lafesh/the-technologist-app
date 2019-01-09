@@ -1,0 +1,16 @@
+<h1>Welcome fellow technologist, <%= current_user.username.capitalize %>!</h1><br />
+<h2><%= @user.username.capitalize %>'s tech reviews are as follows:</h2>
+
+<% @user.reviews.each do |review| %>
+  <h2><%= review.title.capitalize %></h2><br />
+  <h3><%= review.category.title %></h3>
+  <p><%= review.content %></p>
+  <p><%= review.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+  <p><%= link_to "Edit Review", edit_review_path(review) if current_user == review.user %></p>
+<% end %>
+
+<br />
+<h3><%= link_to "Logout", logout_path %></h3>
+<h3><%= link_to "All Reviews", reviews_path %></h3>
+<h3><%= link_to "New Review", new_review_path %></h3>
+<h3><%= link_to "New Category", new_category_path %></h3>

@@ -1,0 +1,31 @@
+<h1>Edit a Review</h1>
+
+<%= form_for @review do |f| %>
+
+
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br />
+
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <br />
+
+  <%= f.collection_select :category_id, Category.order(:title), :id, :title %>
+  <%= f.label :category %>
+  <br />
+
+  <%= f.submit "Publish Edits" %>
+<% end %>
+
+<br />
+
+<%= button_to "Delete Review", review_path, method: :delete %>
+
+<br />
+<h3><%= link_to "All Reviews", review_path %></h3>
+<br />
+<h3><%= link_to "New Review", new_review_path %></h3>
+<br />
+<h3><%= link_to "New Category", new_category_path %></h3>

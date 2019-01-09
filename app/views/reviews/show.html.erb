@@ -1,0 +1,13 @@
+<h1> <%= current_user.username.capitalize %>'s latest review:</h1>
+
+
+<h2><%= @review.title.capitalize%></h2><br />
+<h3><%= @review.category.title %></h3><br />
+<p><%= @review.content %></p><br />
+<p><%= @review.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+
+
+<h3><%= link_to "Logout", logout_path %></h3>
+<h3><%= link_to "All Reviews", reviews_path %></h3><br />
+<h3><%= link_to "New Review", new_review_path %></h3><br />
+<h3><%= link_to "New Category", new_category_path %></h3>

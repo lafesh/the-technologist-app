@@ -1,0 +1,32 @@
+<h1>Publish a Review</h1>
+
+<% if @review.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      The form contains <%= pluralize(@reviews.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% @review.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for @review do |f| %>
+
+  <%= f.collection_select :category_id, Category.order(:title), :id, :title %>
+  <%= f.label :category %>
+
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br />
+
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <br />
+
+  <%= f.submit "Publish Review" %>
+  <% end %>
+

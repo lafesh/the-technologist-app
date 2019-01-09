@@ -1,0 +1,25 @@
+<h1>Welcome, technologist!</h1>
+<h2>For the latest tech reviews, please log in to your account:</h2>
+
+<%= form_for :session, url: login_path do |f| %>
+
+
+
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+  <br />
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <br />
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <br />
+
+  <%= f.submit "Log In" %>
+<% end %>
+
+<br />
+<%= link_to "Log In with Github", "/auth/github" %>
+<%= link_to "Create an Account", "new_user_path" %>

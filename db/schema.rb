@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_07_173504) do
+ActiveRecord::Schema.define(version: 2019_01_09_002908) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2019_01_07_173504) do
     t.string "provider"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "oauth_token"
   end
 
 end

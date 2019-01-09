@@ -29,3 +29,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore 3rd party authorization info
+config/secrets.yml

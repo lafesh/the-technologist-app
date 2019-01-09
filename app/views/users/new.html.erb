@@ -1,27 +1,29 @@
-<h1>Welcome, technologist!</h1>
-<h2>For the lastest tech reviews, please create an account:</h2>
+<div class="heading center">
+    <h3>Welcome, technologist!</h3>
+    For the lastest tech reviews, please create an account:
+</div>
 
 <%=  form_for @user, url: signup_path do |f| %>
 
 
 
-    <%= f.label :username %>
+    <strong><%= f.label :username %></strong>
     <%= f.text_field :username %>
     <br />
 
-    <%= f.label :email %>
+    <strong><%= f.label :email %></strong>
     <%= f.email_field :email%>
     <br />
 
-    <%= f.label :password %>
+    <strong><%= f.label :password %></strong>
     <%= f.password_field :password %>
     <br />
 
-    <%= f.submit "Sign Up" %>
+    <div class="button center"><%= f.submit "Sign Up" %></div>
 <% end %>
 
 <br />
-<%= link_to 'Log In with Github', '/auth/github' %>
+<div class="center"><button class="button"><%= link_to 'Log In with Github', '/auth/github' %></button></div>
 
 
 

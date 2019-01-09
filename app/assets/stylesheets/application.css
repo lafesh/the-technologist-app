@@ -14,4 +14,26 @@
  *= require_self
  */
 
- @import "materialize";
+ @import "materialize"; 
+
+ .container {
+     font-size: 1.25em;
+     font-weight: bolder;
+ } 
+
+ .button {
+    font-size: 12.5px;
+}
+
+.heading {
+    font-size: 35px;
+    color: darkslategray;
+}
+
+.review-sub-label {
+    font-size: 20px;
+    color: darkslategray;
+}
+
+
+

@@ -1,13 +1,11 @@
-<h1> <%= current_user.username.titleize %>'s latest review:</h1>
+<div class="heading center">
+    <h3><%= current_user.username.titleize %>'s latest review:</h3>
+</div>
+<br />
+<br />
 
-
-<h2><%= @review.title.titleize %></h2><br />
-<h3><%= @review.category.title.titleize %></h3><br />
+<div class="heading"><%= @review.title.titleize %></div>
+<div class="review-sub-label">Category:  <em><%= @review.category.title.titleize %></em></div>
 <p><%= @review.content %></p><br />
-<p><%= @review.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+<p>Published:  <em><%= @review.created_at.strftime("%d/%m/%Y %H:%M") %></em></p>
 
-
-<h3><%= link_to "Logout", logout_path %></h3>
-<h3><%= link_to "All Reviews", reviews_path %></h3><br />
-<h3><%= link_to "New Review", new_review_path %></h3><br />
-<h3><%= link_to "New Category", new_category_path %></h3>

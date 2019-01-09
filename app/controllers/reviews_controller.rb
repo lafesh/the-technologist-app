@@ -48,7 +48,8 @@ before_action :is_authorized?, except: [:index, :show]
       #binding.pry
       if @review.destroy
         flash[:success] = "You have successfully deleted your review."
-        redirect_to user_review_path(@user.review)
+        #redirect_to user_review_path(@user.review)
+        redirect_to root_path
       else 
         flash[:error] = @review.errors.full_messages[0]
         redirect_to edit_review_path

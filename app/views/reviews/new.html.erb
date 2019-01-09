@@ -1,19 +1,28 @@
-<h1>Publish a Review</h1>
+<div class="heading center">
+  <h3>Publish a Review</h3>
+</div>
 
 <%= form_for @review do |f| %>
 
-  <%= f.label :category %>
-  <%= f.collection_select :category_id, Category.order(:title), :id, :title %> <br />
-
-
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <strong><%= f.label :category %></strong>
+  <%= f.collection_select :category_id, Category.order(:title), :id, :title %> 
+  <br /> 
   <br />
 
-  <%= f.label :content %>
+  <select class="browser-default">
+    <option value=<%= f.collection_select :category_id, Category.order(:title), :id, :title %></option>
+  </select>
+  
+
+  <strong><%= f.label :title %></strong>
+  <%= f.text_field :title %>
+  <br />
+  <br />
+
+  <strong><%= f.label :content %></strong>
   <%= f.text_area :content %>
   <br />
 
-  <%= f.submit "Publish Review" %>
+  <div class="button center"><%= f.submit "Publish Review" %></div>
   <% end %>
 

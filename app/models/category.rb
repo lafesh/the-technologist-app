@@ -3,5 +3,6 @@ class Category < ApplicationRecord
     has_many :users, through: :reviews
 
     validates :title, presence: true
+    validates :title, uniqueness: true 
     validates :title, length: { maximum: 50 }
 end

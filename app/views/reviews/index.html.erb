@@ -15,7 +15,7 @@
 
 <h3><%= link_to "Login", new_user_path %></h3>
 <h3><%= link_to "Logout", logout_path %></h3>
-<h3><%= link_to "My Reviews", user_path(current_user) %></h3>
+<h3><%= link_to "My Reviews", user_path(current_user) if current_user == logged_in? %></h3>
 <h3><%= link_to "New Review", new_review_path %></h3>
 <h3><%= link_to "New Category", new_category_path %></h3>
 

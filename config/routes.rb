@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#logout", as: "logout"
 
-  get "/auth/github/callback", to: "sessions#github_auth"
+  get "/auth/:provider/callback", to: "sessions#github_auth"
+  get 'auth/failure', to: redirect('/')
 
   resources :reviews, only: [:index, :show, :new, :edit, :create, :update, :destroy]
 
@@ -19,3 +20,6 @@ Rails.application.routes.draw do
     resources :reviews,  only: [:index, :show]
   end
 end
+
+
+

@@ -32,3 +32,6 @@
 
 # Ignore 3rd party authorization info
 config/secrets.yml
+
+# Ignore notes 
+NOTES.md

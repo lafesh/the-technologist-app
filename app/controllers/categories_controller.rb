@@ -19,7 +19,8 @@ class CategoriesController < ApplicationController
           redirect_to root_path
       else 
         flash[:error] = @category.errors.full_messages[0]
-        redirect_to login_path
+        #redirect_to root_path
+        render :new
         end
       end
     end

@@ -5,8 +5,7 @@ before_action :is_authorized?, except: [:index, :show]
     def index
      # if logged_in?
      #   @reviews = current_user.reviews
-     # else 
-        @reviews = Review.most_recent
+        @reviews = Review.most_recent unless @reviews = Review.search(params[:search])
      # end
     end
 
@@ -59,7 +58,7 @@ before_action :is_authorized?, except: [:index, :show]
     private 
 
     def review_params
-      params.require(:review).permit(:title, :content, :category_id)
+      params.require(:review).permit(:title, :content, :category_id, :search)
     end
 
     def set_review

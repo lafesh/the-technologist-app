@@ -1,6 +1,6 @@
 <div class="heading center">
-  <h3>Welcome fellow technologist, <%= current_user.username.titleize unless !current_user %>!</h3>
-  <%= @user.username.titleize %>'s tech reviews are as follows:
+  <h3>Welcome fellow technologist <%= current_user.username.titleize unless !current_user %>!</h3>
+  <%= @user.username.titleize %>'s byte-sized tech reviews are as follows:
 </div>
 <br />
 <br />

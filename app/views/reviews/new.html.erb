@@ -13,7 +13,6 @@
     <option value=<%= f.collection_select :category_id, Category.order(:title), :id, :title %></option>
   </select>
   
-
   <strong><%= f.label :title %></strong>
   <%= f.text_field :title %>
   <br />

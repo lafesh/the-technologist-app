@@ -12,9 +12,15 @@ class Review < ApplicationRecord
 
     def self.search(search)
       if search
-        where('content LIKE ?', "%#{search}%").order('created_at DESC')
+        where('content LIKE ?', "%#{search}%").order(created_at: :desc)
       else
-        order('created_at DESC') 
+        order(created_at: :desc) 
       end
     end
+
+   # def self.search_user(user)
+   #   if user
+   #     join(:user).where(users: {username: user}).order('created_at DESC')
+   #   end
+   # end
 end

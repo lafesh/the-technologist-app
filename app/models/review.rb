@@ -17,10 +17,4 @@ class Review < ApplicationRecord
         order(created_at: :desc) 
       end
     end
-
-   # def self.search_user(user)
-   #   if user
-   #     join(:user).where(users: {username: user}).order('created_at DESC')
-   #   end
-   # end
 end

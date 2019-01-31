@@ -2,11 +2,13 @@
 <h3>Byte-Sized Review Feed</h3>
 </div>
 
-  <%= form_tag(reviews_path, method: :get) do %>
+<%= form_tag(reviews_path, method: :get) do %>
   <%= text_field_tag :search, params[:search] %>
   <br />
   <div class="button center"><%= submit_tag 'Search', name: nil %></div>
 <% end %> 
+
+
 
 <% @reviews.each do |review| %>
   <div class="heading"><%= review.title.titleize %></div>

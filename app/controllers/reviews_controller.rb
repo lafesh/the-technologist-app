@@ -1,11 +1,11 @@
 class ReviewsController < ApplicationController
 before_action :set_review, only: [:show, :update, :edit, :destroy]
-before_action :is_authorized?, except: [:index, :show]
+before_action :is_authorized?, except: [:index, :show, :new, :create]
 
     def index
      # if logged_in?
      #   @reviews = current_user.reviews
-        @reviews = Review.most_recent unless @reviews = Review.search(params[:search])
+        @reviews = Review.most_recent unless @reviews = Review.search(params[:search]) #|| Review.search_user(params[:user])
      # end
     end
 
@@ -45,7 +45,6 @@ before_action :is_authorized?, except: [:index, :show]
     end
 
     def destroy 
-      #binding.pry
       if @review.destroy
         flash[:success] = "You have successfully deleted your review."
         #redirect_to user_review_path(@user.review)
@@ -67,7 +66,7 @@ before_action :is_authorized?, except: [:index, :show]
     end
 
     def is_authorized?
-      flash[:error] = "Oops! You are not authorized to do that." unless current_user #== @review.user 
-      #redirect_to review_path unless current_user == @review.user 
+      flash[:error] = "Oops! You are not authorized to do that." unless current_user == @review.user 
+      redirect_to reviews_path unless current_user == @review.user 
     end
 end

@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require rails-ujs
 //= require activestorage
+//= require reviews
+//= require users
 //= require_tree .
 
 //  document.addEventListener('DOMContentLoaded', function() {

@@ -6,6 +6,6 @@
 
 <div class="heading"><%= @review.title.titleize %></div>
 <div class="review-sub-label">Category:  <em><%= @review.category.title.titleize %></em></div>
-<p><%= @review.content %></p><br />
-<p>Published:  <em><%= @review.created_at.strftime("%d/%m/%Y %H:%M") %></em></p>
+<p class="content"><%= @review.content %></p><br />
+<p class="timestamp">Published:  <em><%= @review.created_at.strftime("%d/%m/%Y %H:%M") %></em></p>
 

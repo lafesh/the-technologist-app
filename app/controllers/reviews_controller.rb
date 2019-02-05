@@ -4,6 +4,12 @@ before_action :is_authorized?, except: [:index, :show, :new, :create]
 
     def index
         @reviews = Review.most_recent unless @reviews = Review.search(params[:search])
+        # binding.pry
+
+        respond_to do |format|
+          format.html { render :index }
+          format.json { render json: @reviews }
+        end
     end
 
     def show
@@ -14,11 +20,15 @@ before_action :is_authorized?, except: [:index, :show, :new, :create]
     end
 
     def new
-      @review = Review.new
+      @review = Review.new(user_id: current_user.id)
+
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @review }
+      end
     end
 
     def create
-      #binding.pry
       if logged_in?
         @category = Category.find(review_params[:category_id])
         @review = @category.reviews.build(review_params)
@@ -59,7 +69,7 @@ before_action :is_authorized?, except: [:index, :show, :new, :create]
     private 
 
     def review_params
-      params.require(:review).permit(:title, :content, :category_id, :search)
+      params.require(:review).permit(:title, :content, :category_id, :search, :user_id)
     end
 
     def set_review

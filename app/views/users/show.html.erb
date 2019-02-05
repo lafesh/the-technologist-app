@@ -5,10 +5,29 @@
 <br />
 <br />
 
+<!--
+<div id="reviews">
+  <h1 class="heading"></h1>
+  <h2 class="review-sub-label"></h2>
+  <p class="content"></p>
+  <p class="timestamp"></p>
+</div>
+-->
+<!--
+<div id="review"></div>
+  <h1 class="header"></h1>
+  Category:  <em><h1 class="review-sub-label"></h1></em>
+  <p class="content"></p>
+  <p class="timestamp">Published:  <em></em></p>
+</div>
+-->
+
 <% @user.reviews.each do |review| %>
   <div class="heading"><%= review.title.titleize %></div>
   <div class="review-sub-label">Category:  <em><%= review.category.title.titleize %></em></div>
-  <p><%= review.content %></p>
-  <p>Published:  <em><%= review.created_at.strftime("%d/%m/%Y %H:%M") %></em></p>
+  <p class="content"><%= review.content %></p>
+  <p class="timestamp">Published:  <em><%= review.created_at.strftime("%d/%m/%Y %H:%M") %></em></p>
   <p><%= link_to "Edit Review", edit_review_path(review) if current_user == review.user %></p>
 <% end %>
+
+

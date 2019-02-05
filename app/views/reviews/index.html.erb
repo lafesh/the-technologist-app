@@ -2,20 +2,28 @@
 <h3>Byte-Sized Review Feed</h3>
 </div>
 
+<div id="search-form">
 <%= form_tag(reviews_path, method: :get) do %>
   <%= text_field_tag :search, params[:search] %>
   <br />
   <div class="button center"><%= submit_tag 'Search', name: nil %></div>
 <% end %> 
+</div>
 
+<div class="button center">
+  <button class="new-form" data-id="<%= current_user.id %>">New Review</button>
+</div>
 
+<div class="form">
+</div>
 
+<div id="reviews">
 <% @reviews.each do |review| %>
   <div class="heading"><%= review.title.titleize %></div>
-  <div class="review-sub-label">Written by: <%= link_to review.user.username.titleize, user_path(review.user) %></em></div>
+  <div class="review-sub-label">Written by: <a href="#" class="author" data-id="<%= review.user_id %>"><%= review.user.username %></a></em></div>
   <div class="review-sub-label">Category: <em><%= review.category.title.titleize %></em></div><br />
   <p><%= review.content %></p>
   <p>Published:  <em><%= review.created_at.strftime("%d/%m/%Y %H:%M") %></em></p>
 <% end %>
-
+</div>
 

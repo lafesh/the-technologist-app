@@ -43,14 +43,15 @@ renderToPage() {
 } 
 
 // Extends truncated review on button click
-// Review.prototype.extendReview = {
-//     $('.show-more').on('click', function() {
-//         //toggle elements with class .ty-compact-list that their index is bigger than 2
-//         $('.content-toggle').toggle();
-//         //change text of show more element just for demonstration purposes to this demo
-//         $(this).text() === 'Show more' ? $(this).text('Show less') : $(this).text('Show more');
-//       });
-//  }
+Review.prototype.extendReview = $(function () {
+    $(".show-more").on('click', function() {
+      let id = $(this).data("id");
+      $.get("/reviews/" + id + "/body", function(data) {
+        $("#body-" + id).text(data);
+      });
+    });
+  });
+
 
 // Gets an indvidual user's reviews via their user_id
 function userReviews () {

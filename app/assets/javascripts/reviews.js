@@ -16,6 +16,42 @@ function attachListeners() {
 //     Rails.fire(search, 'submit');
 // }
 
+// Constructs review objects with review params
+class Review {
+    constructor(id, category, title, content, created_at, username) {
+        this.id = id;
+        this.category = category;
+        this.title = title;
+        this.content = content;
+        this.created_at = created_at;
+        this.username = username;
+    }
+
+// Renders constructed objects to page via HTML
+renderToPage() {
+    let html = `
+    <div id="reviews">
+    <div class="heading">${this.title}</div>
+    <div class="review-sub-label">Written by: ${this.username}</div>
+    <div class="review-sub-label">Category: ${this.category}</div>
+    <p>${this.content}</p>
+    <p>Published: ${this.created_at}</p>
+    </div>
+    `
+    return html;
+  };
+} 
+
+// Extends truncated review on button click
+// Review.prototype.extendReview = {
+//     $('.show-more').on('click', function() {
+//         //toggle elements with class .ty-compact-list that their index is bigger than 2
+//         $('.content-toggle').toggle();
+//         //change text of show more element just for demonstration purposes to this demo
+//         $(this).text() === 'Show more' ? $(this).text('Show less') : $(this).text('Show more');
+//       });
+//  }
+
 // Gets an indvidual user's reviews via their user_id
 function userReviews () {
     event.preventDefault();
@@ -34,51 +70,33 @@ function userReviews () {
     });   
 }
 
-// Constructs review objects with review params
-class Review {
-    constructor(id, category, title, content, created_at, username) {
-        this.id = id;
-        this.category = category;
-        this.title = title;
-        this.content = content;
-        this.created_at = created_at;
-        this.username = username;
-    }
-
-// Render constructed objects to page via HTML
-renderToPage() {
-    let html = `
-    <div id="reviews">
-    <div class="heading">${this.title}</div>
-    <div class="review-sub-label">Written by: </div>
-    <div class="review-sub-label">Category: ${this.category}</div>
-    <p>${this.content}</p>
-    <p>Published: ${this.created_at}</p>
-    </div>
-    `
-    return html;
-  }
-} 
-
-
-
 // Creates a new review via a new, dynamic review form
 function newReview() {
     event.preventDefault();
 
     let user_id = parseInt($('.new-form').attr('data-id'));
     //let user_id = window.location.pathname.split('/')[2];
-    // debugger
     $.get(`/users/${user_id}/reviews/new.json`, function(data) {
        // console.log(data)
+       //debugger
+       
        $('.form').append(
            `
+        <select id="selection">
+           ${data.categories.forEach(function(category) {
+            `<option value="${category.title}">${category.title}</option>`
+                })
+            }  
+       </select>
+           
            <form action="/reviews" method="POST">
             <input type="hidden" name="review[user_id]" value="${data.user_id}">
             <input type="hidden" name="review[category_id]" value="${data.category_id}">
-            <input type="hidden" name="authenticity_token" value="${$("meta[name=csrf-token]")[1]}">
+            <input type="hidden" name="authenticity_token" value="${$("meta[name=csrf-token]").attr("content")}">
+           
+          
             <label for="title">Title: </label><input type="text" name="review[title]">
-            <label for="title">Category: </label><input type="text" name="review[category]">
+ 
             <label for="content">Content: </label><input type="text" name="review[content]">
             <input type="submit" id="create-review" value="Create Review">
            </form>
@@ -88,10 +106,9 @@ function newReview() {
 }
 
 
-{/* <select name="categories">
-<option type="hidden" name="review[category_id] value="${data.category}"></option>
-<option value="">--Please select a category--</option>
-</select> */}
+{/*    <select name="categories">
+            <option type="hidden" name="review[category_id] value="${data.category}">OPtion</option>
+           </select> */}
 
 //Fetch call to URL of show page
 // function getReview() {

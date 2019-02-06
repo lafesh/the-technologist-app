@@ -21,10 +21,11 @@ before_action :is_authorized?, except: [:index, :show, :new, :create]
 
     def new
       @review = Review.new(user_id: current_user.id)
+      @categories = Category.all 
 
       respond_to do |format|
         format.html { render :new }
-        format.json { render json: @review }
+        format.json { render json: { review: @reviews, categories: @categories}}
       end
     end
 

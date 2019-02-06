@@ -21,14 +21,14 @@ function userReviews () {
     event.preventDefault();
     
     let user_id = parseInt($('.author').attr('data-id'));
+    //let user_id = window.location.pathname.split('/')[2];
     // debugger
     $.get(`/users/${user_id}.json`, function (data) {
         // console.log(data)
-        data.reviews.forEach(function(element) {
-           // console.log(element)
-           let review = new Review //(element.title)
-
-            $('.reviews').innerHTML(" ")
+        data.reviews.forEach(function(reviews) {
+            console.log(reviews)
+           let review = new Review(reviews.id, reviews.title, reviews.username, reviews.category, reviews.content, reviews.created_at)
+            
             $('.reviews').append(review.renderToPage())
         });
     });   
@@ -36,38 +36,49 @@ function userReviews () {
 
 // Constructs review objects with review params
 class Review {
-    constructor(id, category, title, content, created_at) {
+    constructor(id, category, title, content, created_at, username) {
         this.id = id;
         this.category = category;
         this.title = title;
         this.content = content;
         this.created_at = created_at;
+        this.username = username;
     }
+
 // Render constructed objects to page via HTML
-    renderToPage() {
-        let html = `
-        
-        `
-        return html
-    }
-}
+renderToPage() {
+    let html = `
+    <div id="reviews">
+    <div class="heading">${this.title}</div>
+    <div class="review-sub-label">Written by: </div>
+    <div class="review-sub-label">Category: ${this.category}</div>
+    <p>${this.content}</p>
+    <p>Published: ${this.created_at}</p>
+    </div>
+    `
+    return html;
+  }
+} 
+
+
 
 // Creates a new review via a new, dynamic review form
 function newReview() {
     event.preventDefault();
 
     let user_id = parseInt($('.new-form').attr('data-id'));
+    //let user_id = window.location.pathname.split('/')[2];
     // debugger
     $.get(`/users/${user_id}/reviews/new.json`, function(data) {
        // console.log(data)
        $('.form').append(
            `
            <form action="/reviews" method="POST">
-            <input type="hidden" name="review[user_id]" value="${data.user.id}">
-            <input type="hidden" name="authenticity_token" value="${$("meta[name=csrf-token]")[1].content}">
-            <select name="categories">
-            </select>
+            <input type="hidden" name="review[user_id]" value="${data.user_id}">
+            <input type="hidden" name="review[category_id]" value="${data.category_id}">
+            <input type="hidden" name="authenticity_token" value="${$("meta[name=csrf-token]")[1]}">
             <label for="title">Title: </label><input type="text" name="review[title]">
+            <label for="title">Category: </label><input type="text" name="review[category]">
             <label for="content">Content: </label><input type="text" name="review[content]">
             <input type="submit" id="create-review" value="Create Review">
            </form>
@@ -77,10 +88,10 @@ function newReview() {
 }
 
 
-
-
-
-
+{/* <select name="categories">
+<option type="hidden" name="review[category_id] value="${data.category}"></option>
+<option value="">--Please select a category--</option>
+</select> */}
 
 //Fetch call to URL of show page
 // function getReview() {
@@ -99,7 +110,7 @@ function newReview() {
 // }
 
 // function getReview() {
-//     const url = `http://localhost:3000/users/${user_id}`;
+//     onst url = `http://localhost:3000/users/${user_id}`;c
 //     const reviewData = {
 //         title: document.querySelector('.header'),
 //         category: document.querySelector('.review-sub-label'),

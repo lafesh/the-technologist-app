@@ -11,7 +11,7 @@
 </div>
 
 <div class="button center">
-  <button class="new-form" data-id="<%= current_user.id %>">New Review</button>
+  <button class="new-form" data-id="<%= current_user.id unless !current_user %>">New Review</button>
 </div>
 
 <div class="form">

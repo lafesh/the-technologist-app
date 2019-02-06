@@ -14,10 +14,4 @@
 //= require rails-ujs
 //= require activestorage
 //= require reviews
-//= require users
 //= require_tree .
-
-//  document.addEventListener('DOMContentLoaded', function() {
-//    var elems = document.querySelectorAll('select');
-//   var instances = M.FormSelect.init(elems, options);
-//  }); 

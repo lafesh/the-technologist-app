@@ -1,10 +1,9 @@
 class ReviewsController < ApplicationController
-before_action :set_review, only: [:show, :update, :edit, :destroy]
+before_action :set_review, only: [:show, :update, :edit, :destroy, :body]
 before_action :is_authorized?, except: [:index, :show, :new, :create]
 
     def index
         @reviews = Review.most_recent unless @reviews = Review.search(params[:search])
-        # binding.pry
 
         respond_to do |format|
           format.html { render :index }
@@ -19,13 +18,17 @@ before_action :is_authorized?, except: [:index, :show, :new, :create]
       end
     end
 
+    def body
+      render plain: @review.content
+    end
+
     def new
       @review = Review.new(user_id: current_user.id)
       @categories = Category.all 
 
       respond_to do |format|
         format.html { render :new }
-        format.json { render json: { review: @reviews, categories: @categories}}
+        format.json { render json: { review: @review, categories: @categories}}
       end
     end
 

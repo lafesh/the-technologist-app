@@ -5,8 +5,8 @@ $(document).ready(() => {
 
 // Handles all page listeners
 function attachListeners() {
-    $('.author').click(userReviews) // Renders an individual user's reviews on click
-    $('.new-form').click(newReview) // Render a new review form
+   // $('.author').click(userReviews) // Renders an individual user's reviews on click
+    $('.new-form').click(newReview) // Renders a new review form on click
 }
 
 // Submits search form without a page refresh
@@ -45,7 +45,9 @@ renderToPage() {
 // Extends truncated review on button click
 Review.prototype.extendReview = $(function () {
     $(".show-more").on('click', function() {
-      let id = $(this).data("id");
+      let id
+      id = $(this).data("id");
+      // debugger
       $.get("/reviews/" + id + "/body", function(data) {
         $("#body-" + id).text(data);
       });
@@ -54,22 +56,20 @@ Review.prototype.extendReview = $(function () {
 
 
 // Gets an indvidual user's reviews via their user_id
-function userReviews () {
+function userReviews (element) {
     event.preventDefault();
-    
-    let user_id = parseInt($('.author').attr('data-id'));
-    //let user_id = window.location.pathname.split('/')[2];
-    // debugger
+    let user_id = parseInt(element.id);
     $.get(`/users/${user_id}.json`, function (data) {
-        // console.log(data)
+        $('#reviews').html("")
         data.reviews.forEach(function(reviews) {
-            console.log(reviews)
-           let review = new Review(reviews.id, reviews.title, reviews.username, reviews.category, reviews.content, reviews.created_at)
-            
-            $('.reviews').append(review.renderToPage())
+           let review = new Review(reviews.id, data.category, reviews.title, reviews.content, reviews.created_at, data.username)
+            $('#reviews').append(review.renderToPage())
         });
-    });   
-}
+    });
+ }
+
+
+
 
 // Creates a new review via a new, dynamic review form
 function newReview() {
@@ -78,38 +78,25 @@ function newReview() {
     let user_id = parseInt($('.new-form').attr('data-id'));
     //let user_id = window.location.pathname.split('/')[2];
     $.get(`/users/${user_id}/reviews/new.json`, function(data) {
-       // console.log(data)
-       //debugger
-       
+
        $('.form').append(
-           `
-        <select id="selection">
-           ${data.categories.forEach(function(category) {
-            `<option value="${category.title}">${category.title}</option>`
-                })
-            }  
-       </select>
-           
-           <form action="/reviews" method="POST">
-            <input type="hidden" name="review[user_id]" value="${data.user_id}">
-            <input type="hidden" name="review[category_id]" value="${data.category_id}">
-            <input type="hidden" name="authenticity_token" value="${$("meta[name=csrf-token]").attr("content")}">
-           
-          
-            <label for="title">Title: </label><input type="text" name="review[title]">
- 
-            <label for="content">Content: </label><input type="text" name="review[content]">
-            <input type="submit" id="create-review" value="Create Review">
-           </form>
+           `     
+       <form action="/reviews" id="review" method="POST">
+       <input type="hidden" name="review[user_id]" value="${data.review.user_id}">
+       <input type="hidden" name="authenticity_token" value="${$("meta[name=csrf-token]").attr("content")}">
+       <select name="review[category_id]" class="browser-default">
+            ${data.categories.map(c => '<option name="review[category_id]" value="' + c.id + '">' + c.title + '</option>')}    
+        </select>
+       <label for="title">Title: </label><input type="text" name="review[title]">
+       <label for="content">Content: </label><input type="text" name="review[content]">
+       <input type="submit" id="create-review" value="Create Review">
+      </form>
            `
        )
     });
 }
 
 
-{/*    <select name="categories">
-            <option type="hidden" name="review[category_id] value="${data.category}">OPtion</option>
-           </select> */}
 
 //Fetch call to URL of show page
 // function getReview() {

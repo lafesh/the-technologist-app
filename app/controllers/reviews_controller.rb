@@ -28,7 +28,7 @@ before_action :is_authorized?, except: [:index, :show, :new, :create]
 
       respond_to do |format|
         format.html { render :new }
-        format.json { render json: { review: @reviews, categories: @categories}}
+        format.json { render json: { review: @review, categories: @categories}}
       end
     end
 

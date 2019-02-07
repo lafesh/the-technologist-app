@@ -20,7 +20,7 @@
 <div id="reviews">
 <% @reviews.each do |review| %>
   <div class="heading"><%= review.title.titleize %></div>
-  <div class="review-sub-label">Written by: <a href="#" class="author" data-id="<%= review.user_id %>"><%= review.user.username %></a></em></div>
+  <div class="review-sub-label">Written by: <a href="#" class="author" onclick="userReviews(this)" id="<%= review.user_id %>"><%= review.user.username %></a></em></div>
   <div class="review-sub-label">Category: <em><%= review.category.title.titleize %></em></div><br />
   <p id="body-<%= review.id %>"><%= truncate review.content %></p>
   <button class="show-more" data-id="<%= review.id %>">Show More</button>
